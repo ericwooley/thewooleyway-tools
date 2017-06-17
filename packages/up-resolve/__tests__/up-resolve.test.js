@@ -6,6 +6,7 @@ describe('find-config', () => {
     beforeEach(() => {
       mock(
         {
+          './package.json': JSON.stringify({ name: 'should appear' }),
           '../package.json': JSON.stringify({ name: 'upOne' }),
           '../../package.json': JSON.stringify({ name: 'upTwo' }),
           '../../packg.jsn': JSON.stringify({ name: 'mispelled package json' }),
@@ -21,12 +22,14 @@ describe('find-config', () => {
     })
     it('should find all the package.json files', () => {
       expect(findConfig(['package.json'])).toEqual([
+        path.join(__dirname, '../package.json'),
         path.join(__dirname, '../../package.json'),
         path.join(__dirname, '../../../package.json')
       ])
     })
     it('should find files based on a pattern', () => {
       expect(findConfig([/pack.*\.j.*/])).toEqual([
+        path.join(__dirname, '../package.json'),
         path.join(__dirname, '../../package.json'),
         path.join(__dirname, '../../../package.json'),
         path.join(__dirname, '../../../packg.jsn')
@@ -34,9 +37,19 @@ describe('find-config', () => {
     })
     it('should find folders and files based on a pattern', () => {
       expect(findConfig([/package(Folder|.json)/])).toEqual([
+        path.join(__dirname, '../package.json'),
         path.join(__dirname, '../../package.json'),
         path.join(__dirname, '../../packageFolder'),
         path.join(__dirname, '../../../package.json')
+      ])
+    })
+    it('should find folders and files based on a pattern in an array', () => {
+      expect(findConfig([/package(Folder|.json)/, 'packg.jsn'])).toEqual([
+        path.join(__dirname, '../package.json'),
+        path.join(__dirname, '../../package.json'),
+        path.join(__dirname, '../../packageFolder'),
+        path.join(__dirname, '../../../package.json'),
+        path.join(__dirname, '../../../packg.jsn')
       ])
     })
   })
