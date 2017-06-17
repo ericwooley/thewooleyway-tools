@@ -1,0 +1,42 @@
+{
+  "name": "@tww/generate",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "Eric Wooley",
+  "license": "NONE",
+  "scripts": {
+    "precommit": "lint-staged",
+    "format": "prettier-eslint \"./packages/**/*.js\""
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "flow"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn run format",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-flow": "^6.23.0",
+    "eslint": "^4.0.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-flowtype": "^2.34.0",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-node": "^5.0.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "flow-bin": "^0.48.0",
+    "husky": "^0.13.4",
+    "lerna": "^2.0.0-rc.5",
+    "lint-staged": "^3.6.1",
+    "prettier": "^1.4.4",
+    "prettier-eslint-cli": "^4.1.1"
+  }
+}
