@@ -4,6 +4,10 @@
     "standard"
   ],
   "plugins": [
-    "flowtype"
-  ]
+    "flowtype",
+    "jest"
+  ],
+  "env": {
+    "jest/globals": true
+  }
 }

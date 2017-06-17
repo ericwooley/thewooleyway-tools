@@ -5,19 +5,13 @@
   "author": "Eric Wooley",
   "license": "NONE",
   "scripts": {
-    "precommit": "lint-staged",
+    "precommit": "lerna run test --stream",
     "format": "prettier-eslint \"./packages/**/*.js\""
   },
   "babel": {
     "presets": [
       "env",
       "flow"
-    ]
-  },
-  "lint-staged": {
-    "*.js": [
-      "yarn run format",
-      "git add"
     ]
   },
   "devDependencies": {
@@ -29,6 +23,7 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-flowtype": "^2.34.0",
     "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jest": "^20.0.3",
     "eslint-plugin-node": "^5.0.0",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",

@@ -1,5 +1,5 @@
 {
-  "name": "@tww/reducer-template",
+  "name": "@tww/template-reducer",
   "version": "0.0.0",
   "main": "index.js",
   "license": "MIT"

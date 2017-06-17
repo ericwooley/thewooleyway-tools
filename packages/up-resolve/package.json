@@ -1,0 +1,13 @@
+{
+  "name": "@tww/up-resolve",
+  "version": "0.0.1",
+  "main": "up-resolve.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4",
+    "mock-fs": "^4.4.1"
+  }
+}

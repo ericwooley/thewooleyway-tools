@@ -4,6 +4,7 @@ import fs from 'fs'
 const packageInfo = JSON.parse(
   fs.readFileSync(path.join(__dirname, '../package.json'))
 )
+console.log(path.dirname(require.main.filename))
 program
   .version(packageInfo.version)
   .option('-p, --peppers', 'Add peppers')
