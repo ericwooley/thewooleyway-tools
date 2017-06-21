@@ -5,7 +5,7 @@
   "author": "Eric Wooley",
   "license": "NONE",
   "scripts": {
-    "precommit": "lerna run test --stream",
+    "precommit": "lerna run test --parallel --stream",
     "format": "prettier-eslint \"./packages/**/*.js\""
   },
   "babel": {
