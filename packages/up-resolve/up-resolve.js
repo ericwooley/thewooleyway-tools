@@ -1,5 +1,11 @@
 var fs = require('fs')
 var path = require('path')
+
+/**
+ *
+ * @param {Array<(String|Regex)>} fileNames - An array of file names or regex patterns to search for
+ * @param {Object} opts - does nothing yet, reserved.
+ */
 function resolveFS (fileNames, opts) {
   var currentPath = process.cwd().split(path.sep)
   return recursiveCheck(fileNames, currentPath)

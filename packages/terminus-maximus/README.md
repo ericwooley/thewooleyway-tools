@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-$ npm install --save terminus-maximus
+$ npm install --save @tww/terminus-maximus
 ```
 
 ## Usage
