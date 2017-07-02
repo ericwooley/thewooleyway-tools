@@ -4,10 +4,11 @@
   "description": "",
   "main": "bufferDispay.js",
   "bin": {
-    "terminus-maximus": "terminal.js"
+    "termax": "bin/terminal.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\""
+    "test": "echo \"Error: no test specified\"",
+    "testRun": "termax ping"
   },
   "author": "Eric Wooley",
   "license": "MIT",
