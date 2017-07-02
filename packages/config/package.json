@@ -1,6 +1,6 @@
 {
   "name": "@tww/config",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "repository": {
     "type": "git",
@@ -13,7 +13,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@tww/up-resolve": "1.0.0",
+    "@tww/up-resolve": "^1.0.1",
     "chalk": "^1.1.3",
     "jsonschema": "^1.1.1"
   },

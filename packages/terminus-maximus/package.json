@@ -1,6 +1,6 @@
 {
   "name": "@tww/terminus-maximus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "private": false,
   "repository": {
@@ -18,7 +18,7 @@
   "author": "Eric Wooley",
   "license": "MIT",
   "dependencies": {
-    "@tww/config": "^1.0.0",
+    "@tww/config": "^1.0.1",
     "blessed": "^0.1.81",
     "chalk": "^2.0.1",
     "jest": "^20.0.4",
