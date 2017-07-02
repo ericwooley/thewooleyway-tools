@@ -6,6 +6,16 @@
   "configurations": [
     {
       "type": "node",
+      "request": "launch",
+      "name": "terminous ping",
+      "cwd": "${workspaceRoot}/packages/terminus-maximus/",
+      "program": "${file}",
+      "args": [
+        "ping"
+      ]
+    },
+    {
+      "type": "node",
       "request": "attach",
       "name": "Attach",
       "port": 5858

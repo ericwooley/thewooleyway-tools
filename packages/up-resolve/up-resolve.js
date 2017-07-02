@@ -1,7 +1,7 @@
 var fs = require('fs')
 var path = require('path')
 function resolveFS (fileNames, opts) {
-  var currentPath = __dirname.split(path.sep)
+  var currentPath = process.cwd().split(path.sep)
   return recursiveCheck(fileNames, currentPath)
 }
 

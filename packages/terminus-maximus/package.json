@@ -1,0 +1,24 @@
+{
+  "name": "terminus-maximus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bufferDispay.js",
+  "bin": {
+    "terminus-maximus": "terminal.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "Eric Wooley",
+  "license": "MIT",
+  "dependencies": {
+    "@tww/config": "1.0.0",
+    "blessed": "^0.1.81",
+    "chalk": "^2.0.1",
+    "jest": "^20.0.4",
+    "mock-fs": "^4.4.1",
+    "npm": "^4.6.1",
+    "shelljs": "^0.7.8",
+    "tree-kill": "^1.1.0"
+  }
+}

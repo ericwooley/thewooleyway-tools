@@ -5,8 +5,9 @@
   "author": "Eric Wooley",
   "license": "NONE",
   "scripts": {
-    "precommit": "lerna run test --parallel --stream",
-    "format": "prettier-eslint \"./packages/**/*.js\""
+    "precommit": "npm test",
+    "format": "prettier-eslint \"./packages/**/*.js\"",
+    "test": "lerna run test --stream --parallel"
   },
   "babel": {
     "presets": [

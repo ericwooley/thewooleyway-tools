@@ -1,6 +1,6 @@
 {
   "name": "@tww/up-resolve",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "up-resolve.js",
   "license": "MIT",
   "scripts": {

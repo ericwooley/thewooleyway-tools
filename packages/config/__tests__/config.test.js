@@ -1,4 +1,4 @@
-var resolveConfig = require('../config')
+var { resolveConfig } = require('../config')
 var mock = require('mock-fs')
 describe('resolve config', () => {
   describe('basic reading', () => {

@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {},
+  "id": "http://example.com/example.json",
+  "properties": {
+    "errorHeight": {
+      "id": "/properties/errorHeight",
+      "type": "integer"
+    },
+    "scripts": {
+      "id": "/properties/scripts",
+      "properties": {
+        "dev": {
+          "id": "/properties/scripts/properties/dev",
+          "items": {
+            "id": "/properties/scripts/properties/dev/items",
+            "properties": {
+              "command": {
+                "id": "/properties/scripts/properties/dev/items/properties/command",
+                "type": "string"
+              },
+              "label": {
+                "id": "/properties/scripts/properties/dev/items/properties/label",
+                "type": "string"
+              },
+              "screenConfig": {
+                "id": "/properties/scripts/properties/dev/items/properties/screenConfig",
+                "properties": {},
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

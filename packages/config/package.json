@@ -1,6 +1,6 @@
 {
   "name": "@tww/config",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "config.js",
   "author": "Eric Wooley",
   "license": "MIT",

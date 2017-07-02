@@ -24,7 +24,7 @@ function resolveConfig (fileName, options) {
     .then(validateSchema(schema))
     .then(reduceConfigs)
 }
-module.exports = resolveConfig
+module.exports.resolveConfig = resolveConfig
 
 function readFileAsync (file) {
   return new Promise((resolve, reject) => {

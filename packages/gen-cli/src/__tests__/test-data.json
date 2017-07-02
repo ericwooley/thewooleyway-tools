@@ -2242,7 +2242,7 @@
                       "resolved": "https://registry.npmjs.org/balanced-match/-/balanced-match-1.0.0.tgz"
                     },
                     "concat-map": {
-                      "version": "0.0.1",
+                      "version": "1.0.0",
                       "from": "concat-map@0.0.1",
                       "resolved": "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
                     }
