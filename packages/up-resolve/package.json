@@ -2,6 +2,7 @@
   "name": "@tww/up-resolve",
   "version": "1.0.0",
   "main": "up-resolve.js",
+  "private": false,
   "license": "MIT",
   "scripts": {
     "test": "jest"

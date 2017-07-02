@@ -1,7 +1,8 @@
 {
-  "name": "terminus-maximus",
+  "name": "@tww/terminus-maximus",
   "version": "1.0.0",
   "description": "",
+  "private": false,
   "main": "bufferDispay.js",
   "bin": {
     "termax": "bin/terminal.js"
@@ -13,7 +14,7 @@
   "author": "Eric Wooley",
   "license": "MIT",
   "dependencies": {
-    "@tww/config": "1.0.0",
+    "@tww/config": "^1.0.0",
     "blessed": "^0.1.81",
     "chalk": "^2.0.1",
     "jest": "^20.0.4",
