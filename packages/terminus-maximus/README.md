@@ -1,4 +1,4 @@
-# terminus-maximus [![NPM version](https://badge.fury.io/js/terminus-maximus.svg)](https://npmjs.org/package/terminus-maximus) [![Build Status](https://travis-ci.org/Eric%20Wooley/terminus-maximus.svg?branch=master)](https://travis-ci.org/Eric%20Wooley/terminus-maximus)
+# @tww/terminus-maximus [![npm version](https://badge.fury.io/js/%40tww%2Fterminus-maximus.svg)](https://badge.fury.io/js/%40tww%2Fterminus-maximus)
 
 > Run concurrent command line commands in an organized and readable way
 
@@ -66,7 +66,7 @@ See the api config below for about these options
 
 3. run `npm run ping` and behold, your readable output of 6 pings.
 
-![logo](./docs/ping.png "Logo Title Text 2")
+![logo](https://github.com/thewooleyway/thewooleymeta/raw/master/packages/terminus-maximus/docs/ping.png "Logo Title Text 2")
 
 
 # API

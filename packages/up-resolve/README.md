@@ -1,4 +1,4 @@
-# tww [![NPM version](https://badge.fury.io/js/@tww/up-resolve.svg)](https://npmjs.org/package/tww) [![Build Status](https://travis-ci.org/Eric%20Wooley/tww.svg?branch=master)](https://travis-ci.org/Eric%20Wooley/tww)
+# @tww/up-resolve [![npm version](https://badge.fury.io/js/%40tww%2Fup-resolve.svg)](https://badge.fury.io/js/%40tww%2Fup-resolve)
 
 > Search up the directory tree from your cwd for specific files.
 

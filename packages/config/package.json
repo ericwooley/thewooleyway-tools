@@ -2,6 +2,10 @@
   "name": "@tww/config",
   "version": "1.0.0",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:thewooleyway/thewooleymeta.git"
+  },
   "main": "config.js",
   "author": "Eric Wooley",
   "license": "MIT",

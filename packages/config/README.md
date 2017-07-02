@@ -1,4 +1,4 @@
-# tww [![NPM version](https://badge.fury.io/js/tww.svg)](https://npmjs.org/package/tww) [![Build Status](https://travis-ci.org/Eric%20Wooley/tww.svg?branch=master)](https://travis-ci.org/Eric%20Wooley/tww)
+# @tww/config [![npm version](https://badge.fury.io/js/%40tww%2Fconfig.svg)](https://badge.fury.io/js/%40tww%2Fconfig)
 
 > Specify a config file name, and search up the directory tree for matching JSON files. Combining them into a config object.
 
