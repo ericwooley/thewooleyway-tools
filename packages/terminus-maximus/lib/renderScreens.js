@@ -63,12 +63,14 @@ function renderScreens (config, scriptToExecute) {
       defaultScreenConfig,
       scriptConfig.screenConfig
     )
-    var {streamer: screenWriter, container} = createScreenBufferStreamer(
+    var {streamer: screenWriter, container, restartButton, killButton} = createScreenBufferStreamer(
       screen,
       proc.stdout,
       blessedOptions,
       {}
     )
+    killButton.on('click', proc.kill)
+    restartButton.on('click', proc.restart)
     container.on('click', () =>
       fullScreenToggle({
         container,
@@ -163,6 +165,19 @@ function createProcess (processConfig, errorStream) {
     getProcess: () => proc,
     stdout,
     getPid: () => proc.pid,
-    restart: () => (proc = startStream())
+    kill: () => {
+      kill(proc.pid)
+      stdout.push('')
+      stdout.push('-------------- killed by user --------------')
+      stdout.push('')
+    },
+    restart: () => {
+      stdout.push('')
+      stdout.push('-------------- restarting --------------')
+      stdout.push('')
+      kill(proc.pid)
+      proc = startStream()
+    }
+
   }
 }

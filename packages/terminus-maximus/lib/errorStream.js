@@ -14,7 +14,7 @@ function createErrorStream (config, screen) {
       width: '100%',
       height: config.errorHeight + '%'
     },
-    red
+    { textWrapper: red, restartButton: false, killButton: false }
   )
   return errorStream
 }

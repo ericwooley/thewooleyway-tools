@@ -39,6 +39,11 @@
         "label": "http",
         "command": "http-server",
         "screenConfig": {}
+      },
+      {
+        "label": "ping",
+        "command": "ping http://127.0.0.1:8087",
+        "screenConfig": {}
       }
     ]
   }
