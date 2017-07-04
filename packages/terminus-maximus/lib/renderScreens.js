@@ -63,15 +63,15 @@ function renderScreens (config, scriptToExecute) {
       defaultScreenConfig,
       scriptConfig.screenConfig
     )
-    var screenWriter = createScreenBufferStreamer(
+    var {streamer: screenWriter, container} = createScreenBufferStreamer(
       screen,
       proc.stdout,
       blessedOptions,
       {}
     )
-    screenWriter.on('click', () =>
+    container.on('click', () =>
       fullScreenToggle({
-        screenWriter,
+        container,
         userScreens,
         config,
         blessedOptions
@@ -80,6 +80,7 @@ function renderScreens (config, scriptToExecute) {
     return {
       fullscreen: false,
       screenWriter,
+      container,
       proc
     }
   })
@@ -112,31 +113,31 @@ function pushLines (str, data, push) {
 }
 
 function fullScreenToggle ({
-  screenWriter,
+  container,
   userScreens,
   config,
   blessedOptions
 }) {
-  if (!screenWriter.fullscreen) {
+  if (!container.fullscreen) {
     userScreens
-      .filter(screen => screen.screenWriter !== screenWriter)
+      .filter(screen => screen.container !== container)
       .forEach(s => {
-        s.screenWriter.hide()
+        s.container.hide()
       })
-    screenWriter.fullscreen = true
-    screenWriter.top = 0
-    screenWriter.left = 0
-    screenWriter.width = '100%'
-    screenWriter.height = 100 - config.errorHeight + '%'
+    container.fullscreen = true
+    container.top = 0
+    container.left = 0
+    container.width = '100%'
+    container.height = 100 - config.errorHeight + '%'
   } else {
-    userScreens.filter(screen => screen !== screenWriter).forEach(s => {
-      s.screenWriter.show()
+    userScreens.filter(screen => screen !== container).forEach(s => {
+      s.container.show()
     })
-    screenWriter.fullscreen = false
-    screenWriter.top = blessedOptions.top
-    screenWriter.left = blessedOptions.left
-    screenWriter.width = blessedOptions.width
-    screenWriter.height = blessedOptions.height
+    container.fullscreen = false
+    container.top = blessedOptions.top
+    container.left = blessedOptions.left
+    container.width = blessedOptions.width
+    container.height = blessedOptions.height
   }
 }
 
