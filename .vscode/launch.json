@@ -9,7 +9,7 @@
       "request": "launch",
       "name": "terminous ping",
       "cwd": "${workspaceRoot}/packages/terminus-maximus/",
-      "program": "${file}",
+      "program": "${workspaceRoot}/packages/terminus-maximus/bin/terminal.js",
       "args": [
         "ping"
       ]

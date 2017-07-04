@@ -39,11 +39,6 @@
         "label": "http",
         "command": "http-server",
         "screenConfig": {}
-      },
-      {
-        "label": "netstat",
-        "command": "netstat",
-        "screenConfig": {}
       }
     ]
   }
