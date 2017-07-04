@@ -1,15 +1,15 @@
-var blessed = require('blessed')
+var blessed = require("blessed");
 var defaultOptions = {
   replaceScreenOnNewData: false
-}
-function createScreenBufferStreamer (
+};
+function createScreenBufferStreamer(
   screen,
   inputBuffer,
   options,
   textWrapper = text => text,
   behaviorOptions = defaultOptions
 ) {
-  behaviorOptions = Object.assign({}, defaultOptions, behaviorOptions)
+  behaviorOptions = Object.assign({}, defaultOptions, behaviorOptions);
   var streamer = blessed.text(
     Object.assign(
       {},
@@ -24,20 +24,22 @@ function createScreenBufferStreamer (
         // height: "50%",
         tags: true,
         border: {
-          type: 'line'
+          type: "line"
         }
       },
       options
     )
-  )
-  inputBuffer.on('data', function (data) {
+  );
+  
+  inputBuffer.on("data", function(data) {
     if (behaviorOptions.replaceScreenOnNewData) {
-      streamer.setContent(data)
+      streamer.setContent(data);
     } else {
-      streamer.pushLine(textWrapper(data))
+      streamer.pushLine(textWrapper(data));
     }
-    streamer.scroll(Number.MAX_VALUE)
-  })
-  return streamer
+    streamer.scroll(Number.MAX_VALUE);
+  });
+  streamer.on("click");
+  return streamer;
 }
-module.exports.createScreenBufferStreamer = createScreenBufferStreamer
+module.exports.createScreenBufferStreamer = createScreenBufferStreamer;
