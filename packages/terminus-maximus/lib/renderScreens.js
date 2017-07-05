@@ -33,13 +33,13 @@ var stream = require('stream')
  * @param {String} scriptToExecute - which script to execute from the config
  */
 
-function renderScreens (config, scriptToExecute) {
+function renderScreens(config, scriptToExecute) {
   config = Object.assign(
     {
       errorHeight: 20
     },
     config
-  )
+  );
 
   const {errorStream, errorDisplay, blessedConfig} = createErrorScreen(config, screen)
   const scriptDefinition = Object.assign({screensPerRow: 2}, config.scripts[scriptToExecute])
@@ -99,7 +99,7 @@ function renderScreens (config, scriptToExecute) {
   const childProcesses = [
     ...userScreens
     // createTopScreen(config, screen, userScreens) // Not stable yet
-  ]
+  ];
 
   function shutDown (code) {
     return event => {
@@ -117,14 +117,14 @@ function renderScreens (config, scriptToExecute) {
   screen.key('C-c', shutDown(0))
   screen.key('C-d', shutDown(0))
 
-  screen.render()
+  screen.render();
 }
-module.exports.renderScreens = renderScreens
+module.exports.renderScreens = renderScreens;
 
-function pushLines (str, data, push) {
-  const lines = data.split(endOfLine)
-  const label = ('              ' + str + ': ').slice(-25)
-  lines.map(line => label + line).forEach(push)
+function pushLines(str, data, push) {
+  const lines = data.split(endOfLine);
+  const label = ("              " + str + ": ").slice(-25);
+  lines.map(line => label + line).forEach(push);
 }
 
 function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
