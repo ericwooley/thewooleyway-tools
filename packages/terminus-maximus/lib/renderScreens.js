@@ -41,7 +41,7 @@ function renderScreens (config, scriptToExecute) {
     config
   )
 
-  const errorStream = createErrorScreen(config, screen)
+  const {errorStream, errorDisplay, blessedConfig} = createErrorScreen(config, screen)
   const scriptDefinition = Object.assign({screensPerRow: 2}, config.scripts[scriptToExecute])
   const screensPerRow = scriptDefinition.screensPerRow
   const defaultHeight = (100 - config.errorHeight) /
@@ -74,7 +74,7 @@ function renderScreens (config, scriptToExecute) {
     } = createScreenBufferStreamer(screen, proc.stdout, blessedOptions, {})
     killButton.on('click', proc.kill)
     restartButton.on('click', proc.restart)
-    container.on('click', () =>
+    container.on('element click', () =>
       fullScreenToggle({
         container,
         userScreens,
@@ -90,9 +90,9 @@ function renderScreens (config, scriptToExecute) {
     }
   })
 
-  errorStream.on('click', () => {
+  errorDisplay.container.on('element click', () => {
     fullScreenToggle({
-      container: errorStream, config, userScreens, blessedOptions: {}
+      container: errorDisplay.container, config, userScreens, blessedOptions: blessedConfig
     })
   })
 
@@ -136,7 +136,7 @@ function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
     container.top = 0
     container.left = 0
     container.width = '100%'
-    container.height = 100 - config.errorHeight + '%'
+    container.height = '100%'
   } else {
     userScreens.filter(screen => screen !== container).forEach(s => {
       s.container.show()

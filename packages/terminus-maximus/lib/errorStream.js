@@ -4,19 +4,20 @@ var { createScreenBufferStreamer } = require('./bufferDispay')
 
 function createErrorStream (config, screen) {
   const errorStream = new stream.PassThrough()
-  createScreenBufferStreamer(
+  const blessedConfig = {
+    left: 0,
+    bottom: 0,
+    label: 'Errors',
+    width: '100%',
+    height: config.errorHeight + '%'
+  }
+  const errorDisplay = createScreenBufferStreamer(
     screen,
     errorStream,
-    {
-      left: 0,
-      bottom: 0,
-      label: 'Errors',
-      width: '100%',
-      height: config.errorHeight + '%'
-    },
+    blessedConfig,
     { textWrapper: red, restartButton: false, killButton: false, clearButton: false }
   )
-  return errorStream
+  return {errorStream, errorDisplay, blessedConfig}
 }
 
 module.exports = createErrorStream
