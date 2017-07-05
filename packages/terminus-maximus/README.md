@@ -11,7 +11,7 @@ $ npm install --save @tww/terminus-maximus
 ## Usage
 1. create a .terminusMaximus file (JSON), eg:
 
-See the api config below for about these options
+> See the api config below for more about these options
 ```js
 {
   "errorHeight": 20,

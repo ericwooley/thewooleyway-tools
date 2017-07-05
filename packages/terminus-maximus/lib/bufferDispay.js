@@ -1,4 +1,4 @@
-var blessed = require('blessed')
+var blessed = require("blessed");
 var defaultOptions = {
   replaceScreenOnNewData: false,
   textWrapper: text => text,
@@ -100,4 +100,4 @@ function createScreenBufferStreamer (
     restartButton
   }
 }
-module.exports.createScreenBufferStreamer = createScreenBufferStreamer
+module.exports.createScreenBufferStreamer = createScreenBufferStreamer;
