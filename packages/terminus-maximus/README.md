@@ -85,7 +85,7 @@ $ npm install --save @tww/terminus-maximus
 
 # API
 
-See (our api)[./api.md]
+See [our api](./api.md)
 
 
 ## License
