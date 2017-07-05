@@ -20,7 +20,9 @@ function createScreenBufferStreamer (
         type: 'line'
       }
     },
-    containerOptions
+    containerOptions, {
+      label: ' ✉ ' + containerOptions.label
+    }
   )
   options = Object.assign({}, defaultOptions, options)
   const container = blessed.box(containerScreenOptions)
@@ -89,15 +91,6 @@ function createScreenBufferStreamer (
       screen.render()
     })
   }
-  const fullScreenLabel = ' ✉ '
-  const fullScreenButton = blessed.button({
-    parent: container,
-    width: fullScreenLabel.length,
-    height: 1,
-    left: killLabelWidth + restartlabelwidth + clearLabelWidth,
-    content: fullScreenLabel
-  })
-
   inputBuffer.on('data', function (data) {
     if (options.replaceScreenOnNewData) {
       streamer.setContent(data + '')
@@ -108,7 +101,6 @@ function createScreenBufferStreamer (
     screen.render()
   })
   return {
-    fullScreenButton,
     killButton,
     container,
     streamer,
