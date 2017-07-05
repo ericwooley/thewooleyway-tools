@@ -1,50 +1,54 @@
 {
   "errorHeight": 20,
-  "screensPerRow": 3,
   "scripts": {
-    "ping": [
-      {
-        "label": "ping google",
-        "command": "ping www.google.com",
-        "screenConfig": {}
-      },
-      {
-        "label": "ping microsoft",
-        "command": "ping www.microsoft.com",
-        "screenConfig": {}
-      },
-      {
-        "label": "ping yahoo",
-        "command": "ping www.yahoo.com",
-        "screenConfig": {}
-      },
-      {
-        "label": "ping reddit",
-        "command": "ping www.reddit.com",
-        "screenConfig": {}
-      },
-       {
-        "label": "ping craigslist.com",
-        "command": "ping www.craigslist.com",
-        "screenConfig": {}
-      },
-       {
-        "label": "ping ravelry",
-        "command": "ping www.ravelry.com",
-        "screenConfig": {}
-      }
-    ],
-     "http": [
-      {
-        "label": "http",
-        "command": "http-server",
-        "screenConfig": {}
-      },
-      {
-        "label": "ping",
-        "command": "ping http://127.0.0.1:8087",
-        "screenConfig": {}
-      }
-    ]
+    "ping": {
+      "screensPerRow": 3,
+      "commands": [
+        {
+          "label": "ping google",
+          "command": "ping www.google.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping microsoft",
+          "command": "ping www.microsoft.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping yahoo",
+          "command": "ping www.yahoo.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping reddit",
+          "command": "ping www.reddit.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping craigslist.com",
+          "command": "ping www.craigslist.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping ravelry",
+          "command": "ping www.ravelry.com",
+          "screenConfig": {}
+        }
+      ]
+    },
+    "http": {
+      "commands": [
+        {
+          "label": "http",
+          "command": "http-server",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping",
+          "command": "ping http://127.0.0.1:8087",
+          "screenConfig": {}
+        }
+      ]
+    }
   }
 }

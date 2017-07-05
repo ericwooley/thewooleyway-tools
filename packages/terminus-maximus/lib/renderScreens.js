@@ -9,8 +9,14 @@ var stream = require('stream')
 /**
  * @typedef TerminusMaximusConfig
  * @property {Number} errorHeight - The height for the error console
- * @property {Object<string, Array.CommandConfig>} scripts - Config for each command group to run
+ * @property {Object<string, CommandConfig>} scripts - Config for each command group to run
  * @property {Number} screensPerRow - The number of screens per row
+ */
+
+/**
+ * @typedef ScriptConfig
+ * @property {Number} screensPerRow - Number of strings per row
+ * @property {Array.CommandConfig} commands - Commands to run
  */
 
 /**
@@ -30,24 +36,21 @@ var stream = require('stream')
 function renderScreens (config, scriptToExecute) {
   config = Object.assign(
     {
-      errorHeight: 20,
-      screensPerRow: 2
+      errorHeight: 20
     },
     config
   )
 
   const errorStream = createErrorScreen(config, screen)
-  const scriptDefinition = config.scripts[scriptToExecute]
-  const screensPerRow = config.screensPerRow
-  const defaultHeight =
-    (100 - config.errorHeight) /
-    Math.ceil(scriptDefinition.length / screensPerRow)
+  const scriptDefinition = Object.assign({screensPerRow: 2}, config.scripts[scriptToExecute])
+  const screensPerRow = scriptDefinition.screensPerRow
+  const defaultHeight = (100 - config.errorHeight) /
+    Math.ceil(scriptDefinition.commands.length / screensPerRow)
   const defaultScreenConfig = {
     width: '50%',
     height: defaultHeight + '%'
   }
-
-  const userScreens = scriptDefinition.map((scriptConfig, index) => {
+  const userScreens = scriptDefinition.commands.map((scriptConfig, index) => {
     const proc = createProcess(scriptConfig, errorStream)
     const row = Math.floor(index / screensPerRow)
     const top = defaultHeight * row
@@ -63,12 +66,12 @@ function renderScreens (config, scriptToExecute) {
       defaultScreenConfig,
       scriptConfig.screenConfig
     )
-    var {streamer: screenWriter, container, restartButton, killButton} = createScreenBufferStreamer(
-      screen,
-      proc.stdout,
-      blessedOptions,
-      {}
-    )
+    var {
+      streamer: screenWriter,
+      container,
+      restartButton,
+      killButton
+    } = createScreenBufferStreamer(screen, proc.stdout, blessedOptions, {})
     killButton.on('click', proc.kill)
     restartButton.on('click', proc.restart)
     container.on('click', () =>
@@ -95,7 +98,11 @@ function renderScreens (config, scriptToExecute) {
   function shutDown (code) {
     return event => {
       screen.destroy()
-      childProcesses.map(p => p.proc.getPid()).forEach(pid => kill(pid))
+      childProcesses.forEach(p => {
+        p.proc.getProcess().stdin.pause()
+        p.proc.getProcess().kill('SIGKILL')
+        kill(p.pid, 'SIGKILL')
+      })
       process.exit(code)
     }
   }
@@ -114,18 +121,11 @@ function pushLines (str, data, push) {
   lines.map(line => label + line).forEach(push)
 }
 
-function fullScreenToggle ({
-  container,
-  userScreens,
-  config,
-  blessedOptions
-}) {
+function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
   if (!container.fullscreen) {
-    userScreens
-      .filter(screen => screen.container !== container)
-      .forEach(s => {
-        s.container.hide()
-      })
+    userScreens.filter(screen => screen.container !== container).forEach(s => {
+      s.container.hide()
+    })
     container.fullscreen = true
     container.top = 0
     container.left = 0
@@ -146,7 +146,10 @@ function fullScreenToggle ({
 function createProcess (processConfig, errorStream) {
   const stdout = new stream.PassThrough()
   const startStream = () => {
-    const p = shelljs.exec(processConfig.command, { async: true, silent: true })
+    const p = shelljs.exec(processConfig.command, {
+      async: true,
+      silent: true
+    })
     p.stdout.on('data', data => {
       data.split(endOfLine).forEach(l => {
         stdout.push(l)
@@ -178,6 +181,5 @@ function createProcess (processConfig, errorStream) {
       kill(proc.pid)
       proc = startStream()
     }
-
   }
 }
