@@ -117,14 +117,73 @@ function renderScreens(config, scriptToExecute) {
   screen.key('C-c', shutDown(0))
   screen.key('C-d', shutDown(0))
 
-  screen.render();
-}
-module.exports.renderScreens = renderScreens;
-
 function pushLines(str, data, push) {
   const lines = data.split(endOfLine);
   const label = ("              " + str + ": ").slice(-25);
   lines.map(line => label + line).forEach(push);
+}
+
+function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
+  if (!container.fullscreen) {
+    userScreens.filter(screen => screen.container !== container).forEach(s => {
+      s.container.hide()
+    })
+    container.fullscreen = true
+    container.top = 0
+    container.left = 0
+    container.width = '100%'
+    container.height = '100%'
+  } else {
+    userScreens.filter(screen => screen !== container).forEach(s => {
+      s.container.show()
+    })
+    container.fullscreen = false
+    container.top = blessedOptions.top
+    container.left = blessedOptions.left
+    container.width = blessedOptions.width
+    container.height = blessedOptions.height
+  }
+}
+
+function createProcess (processConfig, errorStream) {
+  const stdout = new stream.PassThrough()
+  const startStream = () => {
+    const p = shelljs.exec(processConfig.command, {
+      async: true,
+      silent: true
+    })
+    p.stdout.on('data', data => {
+      data.split(endOfLine).forEach(l => {
+        stdout.push(l)
+      })
+    })
+    p.stderr.on('data', data => {
+      pushLines(processConfig.label || processConfig.command, data, line =>
+        errorStream.push(line)
+      )
+    })
+    return p
+  }
+  let proc = startStream()
+
+  return {
+    getProcess: () => proc,
+    stdout,
+    getPid: () => proc.pid,
+    kill: () => {
+      kill(proc.pid)
+      stdout.push('')
+      stdout.push('-------------- killed by user --------------')
+      stdout.push('')
+    },
+    restart: () => {
+      stdout.push('')
+      stdout.push('-------------- restarting --------------')
+      stdout.push('')
+      kill(proc.pid)
+      proc = startStream()
+    }
+  }
 }
 
 function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
