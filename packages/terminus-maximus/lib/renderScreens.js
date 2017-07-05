@@ -90,6 +90,12 @@ function renderScreens (config, scriptToExecute) {
     }
   })
 
+  errorStream.on('click', () => {
+    fullScreenToggle({
+      container: errorStream, config, userScreens, blessedOptions: {}
+    })
+  })
+
   const childProcesses = [
     ...userScreens
     // createTopScreen(config, screen, userScreens) // Not stable yet

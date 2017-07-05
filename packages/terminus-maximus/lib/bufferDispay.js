@@ -3,7 +3,8 @@ var defaultOptions = {
   replaceScreenOnNewData: false,
   textWrapper: text => text,
   killButton: true,
-  restartButton: true
+  restartButton: true,
+  clearButton: true
 }
 function createScreenBufferStreamer (
   screen,
@@ -33,7 +34,7 @@ function createScreenBufferStreamer (
     bottom: 0,
     tags: true
   })
-  let restartLabel
+  let restartLabel = ''
   let restartButton
   if (options.restartButton) {
     restartLabel = ' ↻ '
@@ -47,7 +48,7 @@ function createScreenBufferStreamer (
       }
     })
   }
-  let killLabel
+  let killLabel = ''
   let killButton
   if (options.killButton) {
     killLabel = ' ✗ '
@@ -60,6 +61,26 @@ function createScreenBufferStreamer (
       style: {
         bg: 'red'
       }
+    })
+  }
+
+  let clearLabel
+  let clearButton
+  if (options.clearButton) {
+    clearLabel = ' Ϫ '
+    clearButton = blessed.button({
+      parent: container,
+      width: clearLabel.length,
+      height: 1,
+      left: killLabel.length + restartLabel.length + 4,
+      content: clearLabel,
+      style: {
+        bg: 'blue'
+      }
+    })
+    clearButton.on('click', () => {
+      streamer.setContent('')
+      screen.render()
     })
   }
 
