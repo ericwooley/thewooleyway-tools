@@ -15,45 +15,59 @@ $ npm install --save @tww/terminus-maximus
 ```js
 {
   "errorHeight": 20,
-  "screensPerRow": 3,
   "scripts": {
-    "ping": [
-      {
-        "label": "ping google",
-        "command": "ping www.google.com",
-        "screenConfig": {}
-      },
-      {
-        "label": "ping microsoft",
-        "command": "ping www.microsoft.com",
-        "screenConfig": {}
-      },
-      {
-        "label": "ping yahoo",
-        "command": "ping www.yahoo.com",
-        "screenConfig": {}
-      },
-      {
-        "label": "ping reddit",
-        "command": "ping www.reddit.com",
-        "screenConfig": {}
-      },
-       {
-        "label": "ping craigslist.com",
-        "command": "ping www.craigslist.com",
-        "screenConfig": {}
-      },
-       {
-        "label": "ping ravelry",
-        "command": "ping www.ravelry.com",
-        "screenConfig": {}
-      }
-    ],
-     "http": [
-      
-    ]
+    "ping": {
+      "screensPerRow": 3,
+      "commands": [
+        {
+          "label": "ping google",
+          "command": "ping www.google.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping microsoft",
+          "command": "ping www.microsoft.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping yahoo",
+          "command": "ping www.yahoo.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping reddit",
+          "command": "ping www.reddit.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping craigslist.com",
+          "command": "ping www.craigslist.com",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping ravelry",
+          "command": "ping www.ravelry.com",
+          "screenConfig": {}
+        }
+      ]
+    },
+    "http": {
+      "commands": [
+        {
+          "label": "http",
+          "command": "http-server",
+          "screenConfig": {}
+        },
+        {
+          "label": "ping",
+          "command": "curl http://127.0.0.1:8080/",
+          "screenConfig": {}
+        }
+      ]
+    }
   }
 }
+
 ```
 2. add an npm script for your command, eg `ping`.
 ```js
