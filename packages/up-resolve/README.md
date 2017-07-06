@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-$ npm install --save tww
+$ npm install --save @tww/up-resolve
 ```
 
 ## Usage
