@@ -1,4 +1,4 @@
-> TheWooleyWay - monorepo
+> TheWooleyWay monorepo - collection of dev tools for the wooley way.
 
 ## Projects
 * [@tww/Terminus Maximus](https://github.com/thewooleyway/thewooleymeta/tree/master/packages/terminus-maximus) - Organized Concurrent scripts!
