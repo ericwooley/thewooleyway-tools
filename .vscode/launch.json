@@ -7,6 +7,16 @@
     {
       "type": "node",
       "request": "launch",
+      "name": "terminous http",
+      "cwd": "${workspaceRoot}/packages/terminus-maximus/",
+      "program": "${workspaceRoot}/packages/terminus-maximus/bin/terminal.js",
+      "args": [
+        "http"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
       "name": "terminous ping",
       "cwd": "${workspaceRoot}/packages/terminus-maximus/",
       "program": "${workspaceRoot}/packages/terminus-maximus/bin/terminal.js",

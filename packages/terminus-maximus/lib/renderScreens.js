@@ -6,6 +6,10 @@ var screen = initScreen()
 var shelljs = require('shelljs')
 var endOfLine = require('os').EOL
 var stream = require('stream')
+var {debounce} = require('lodash')
+var forceRender = debounce(() => {
+  screen.render()
+}, 50)
 /**
  * @typedef TerminusMaximusConfig
  * @property {Number} errorHeight - The height for the error console
@@ -41,7 +45,7 @@ function renderScreens (config, scriptToExecute) {
     config
   )
 
-  const {errorStream, errorDisplay, blessedConfig} = createErrorScreen(config, screen)
+  const {errorStream, errorDisplay, blessedConfig} = createErrorScreen(config, screen, forceRender)
   const scriptDefinition = Object.assign({screensPerRow: 2}, config.scripts[scriptToExecute])
   const screensPerRow = scriptDefinition.screensPerRow
   const defaultHeight = (100 - config.errorHeight) /
@@ -71,7 +75,9 @@ function renderScreens (config, scriptToExecute) {
       container,
       restartButton,
       killButton
-    } = createScreenBufferStreamer(screen, proc.stdout, blessedOptions, {})
+    } = createScreenBufferStreamer(screen, proc.stdout, blessedOptions, {
+      forceRender
+    })
     killButton.on('click', proc.kill)
     restartButton.on('click', proc.restart)
     container.on('click', () =>
@@ -111,6 +117,7 @@ function renderScreens (config, scriptToExecute) {
       process.exit(code)
     }
   }
+  process.on('exit', shutDown())
 
   screen.key('C-q', shutDown(0))
   screen.key('C-c', shutDown(0))
