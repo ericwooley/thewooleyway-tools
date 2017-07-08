@@ -98,7 +98,7 @@ function createScreenBufferStreamer (
       streamer.pushLine(options.textWrapper(data + ''))
     }
     streamer.scroll(Number.MAX_VALUE)
-    screen.render()
+    options.forceRender()
   })
   return {
     killButton,

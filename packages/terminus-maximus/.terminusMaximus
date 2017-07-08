@@ -44,8 +44,13 @@
           "screenConfig": {}
         },
         {
-          "label": "ping",
-          "command": "curl http://127.0.0.1:8080/",
+          "label": "curl output",
+          "command": "curl http://127.0.0.1:8080/ | grep package.json",
+          "screenConfig": {}
+        },
+        {
+          "label": "echo test",
+          "command": "ls",
           "screenConfig": {}
         }
       ]

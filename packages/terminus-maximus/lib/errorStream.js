@@ -2,7 +2,7 @@ var stream = require('stream')
 var { red } = require('chalk')
 var { createScreenBufferStreamer } = require('./bufferDispay')
 
-function createErrorStream (config, screen) {
+function createErrorStream (config, screen, forceRender) {
   const errorStream = new stream.PassThrough()
   const blessedConfig = {
     left: 0,
@@ -15,7 +15,7 @@ function createErrorStream (config, screen) {
     screen,
     errorStream,
     blessedConfig,
-    { textWrapper: red, restartButton: false, killButton: false, clearButton: false }
+    { textWrapper: red, restartButton: false, killButton: false, clearButton: false, forceRender }
   )
   return {errorStream, errorDisplay, blessedConfig}
 }
