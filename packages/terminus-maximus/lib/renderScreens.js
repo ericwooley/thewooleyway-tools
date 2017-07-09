@@ -3,13 +3,20 @@ var { createScreenBufferStreamer } = require('./bufferDispay')
 var { initScreen } = require('./screen')
 var createErrorScreen = require('./errorStream')
 var screen = initScreen()
-var shelljs = require('shelljs')
+// var shelljs = require('shelljs')
+var {spawn} = require('child_process')
 var endOfLine = require('os').EOL
 var stream = require('stream')
-var {debounce} = require('lodash')
-var forceRender = debounce(() => {
+var parse = require('parse-spawn-args').parse
+var {throttle} = require('lodash')
+var forceRender = throttle(() => {
   screen.render()
-}, 50)
+}, 1000, {
+  leading: true
+})
+// var forceRender = () => {
+//   screen.render()
+// }
 /**
  * @typedef TerminusMaximusConfig
  * @property {Number} errorHeight - The height for the error console
@@ -76,7 +83,8 @@ function renderScreens (config, scriptToExecute) {
       restartButton,
       killButton
     } = createScreenBufferStreamer(screen, proc.stdout, blessedOptions, {
-      forceRender
+      forceRender,
+      getPid: () => proc.getPid ? proc.getPid() : '-'
     })
     killButton.on('click', proc.kill)
     restartButton.on('click', proc.restart)
@@ -158,18 +166,25 @@ function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
 function createProcess (processConfig, errorStream) {
   const stdout = new stream.PassThrough()
   const startStream = () => {
-    const p = shelljs.exec(processConfig.command, {
-      async: true,
-      silent: true
-    })
+    const arr = processConfig.command.split(' ')
+    const command = arr[0]
+    const args = arr.slice(1).join(' ')
+    let parsedArgs = []
+    if (args) {
+      parsedArgs = parse(args)
+    }
+
+    const p = spawn(command, parsedArgs, {shell: true})
     p.stdout.on('data', data => {
+      data = data + ''
       data.split(endOfLine).forEach(l => {
-        stdout.push(l)
+        setTimeout(() => stdout.push(l), 0)
       })
     })
     p.stderr.on('data', data => {
+      data = data + ''
       pushLines(processConfig.label || processConfig.command, data, line =>
-        errorStream.push(line)
+        setTimeout(() => errorStream.push(line), 0)
       )
     })
     return p

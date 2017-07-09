@@ -4,7 +4,8 @@ var defaultOptions = {
   textWrapper: text => text,
   killButton: true,
   restartButton: true,
-  clearButton: true
+  clearButton: true,
+  getPid: () => ''
 }
 function createScreenBufferStreamer (
   screen,
@@ -12,19 +13,21 @@ function createScreenBufferStreamer (
   containerOptions,
   options = defaultOptions
 ) {
+  options = Object.assign({}, defaultOptions, options)
   const containerScreenOptions = Object.assign(
     {
       parent: screen,
+      scrollback: 200,
       mouse: true,
       border: {
         type: 'line'
       }
     },
     containerOptions, {
-      label: ' ✉ ' + containerOptions.label
+      label: ' ✉ ' + containerOptions.label + ' ' + options.getPid()
     }
   )
-  options = Object.assign({}, defaultOptions, options)
+
   const container = blessed.box(containerScreenOptions)
   const streamer = blessed.box({
     parent: container,
@@ -95,6 +98,7 @@ function createScreenBufferStreamer (
     if (options.replaceScreenOnNewData) {
       streamer.setContent(data + '')
     } else {
+      // console.log('push line', options.textWrapper(data + ''))
       streamer.pushLine(options.textWrapper(data + ''))
     }
     streamer.scroll(Number.MAX_VALUE)

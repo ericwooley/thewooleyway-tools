@@ -54,6 +54,20 @@
           "screenConfig": {}
         }
       ]
+    },
+    "loop": {
+      "commands": [
+        {
+          "label": "loop 1",
+          "command": "./testScripts/loop.sh",
+          "screenConfig": {}
+        },
+        {
+          "label": "loop 2",
+          "command": "./testScripts/loop.sh",
+          "screenConfig": {}
+        }
+      ]
     }
   }
 }
