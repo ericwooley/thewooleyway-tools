@@ -24,7 +24,7 @@ function createScreenBufferStreamer (
       }
     },
     containerOptions, {
-      label: ' ✉ ' + containerOptions.label + ' ' + options.getPid()
+      label: ' ✉ ' + containerOptions.label
     }
   )
 
@@ -32,6 +32,7 @@ function createScreenBufferStreamer (
   const streamer = blessed.box({
     parent: container,
     scrollable: true,
+    scrollback: 100,
     alwaysScroll: true,
     top: (options.killButton || options.restartButton) ? 1 : 0,
     width: '100%',

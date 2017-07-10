@@ -3,15 +3,15 @@ var { createScreenBufferStreamer } = require('./bufferDispay')
 var { initScreen } = require('./screen')
 var createErrorScreen = require('./errorStream')
 var screen = initScreen()
+var spawnCommand = require('./spawnCommand')
 // var shelljs = require('shelljs')
-var {spawn} = require('child_process')
 var endOfLine = require('os').EOL
 var stream = require('stream')
-var parse = require('parse-spawn-args').parse
+
 var {throttle} = require('lodash')
 var forceRender = throttle(() => {
   screen.render()
-}, 1000, {
+}, 50, {
   leading: true
 })
 // var forceRender = () => {
@@ -83,8 +83,7 @@ function renderScreens (config, scriptToExecute) {
       restartButton,
       killButton
     } = createScreenBufferStreamer(screen, proc.stdout, blessedOptions, {
-      forceRender,
-      getPid: () => proc.getPid ? proc.getPid() : '-'
+      forceRender
     })
     killButton.on('click', proc.kill)
     restartButton.on('click', proc.restart)
@@ -118,9 +117,7 @@ function renderScreens (config, scriptToExecute) {
     return event => {
       screen.destroy()
       childProcesses.forEach(p => {
-        p.proc.getProcess().stdin.pause()
-        p.proc.getProcess().kill('SIGKILL')
-        kill(p.pid, 'SIGKILL')
+        p.proc.kill()
       })
       process.exit(code)
     }
@@ -134,12 +131,6 @@ function renderScreens (config, scriptToExecute) {
   screen.render()
 }
 module.exports.renderScreens = renderScreens
-
-function pushLines (str, data, push) {
-  const lines = data.split(endOfLine)
-  const label = ('              ' + str + ': ').slice(-25)
-  lines.map(line => label + line).forEach(push)
-}
 
 function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
   if (!container.fullscreen) {
@@ -166,28 +157,24 @@ function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
 function createProcess (processConfig, errorStream) {
   const stdout = new stream.PassThrough()
   const startStream = () => {
-    const arr = processConfig.command.split(' ')
-    const command = arr[0]
-    const args = arr.slice(1).join(' ')
-    let parsedArgs = []
-    if (args) {
-      parsedArgs = parse(args)
+    // Scope is probably broken inside the worker
+    const {worker, kill} = spawnCommand(processConfig.command, {
+      onStdout: (data) => {
+        data.split(endOfLine).forEach(l => {
+          stdout.push(l)
+        })
+      },
+      onStderr: (data) => {
+        data.split(endOfLine).forEach(l => {
+          errorStream.push(l)
+        })
+      }
+    })
+    return {
+      worker,
+      kill,
+      stdout
     }
-
-    const p = spawn(command, parsedArgs, {shell: true})
-    p.stdout.on('data', data => {
-      data = data + ''
-      data.split(endOfLine).forEach(l => {
-        setTimeout(() => stdout.push(l), 0)
-      })
-    })
-    p.stderr.on('data', data => {
-      data = data + ''
-      pushLines(processConfig.label || processConfig.command, data, line =>
-        setTimeout(() => errorStream.push(line), 0)
-      )
-    })
-    return p
   }
   let proc = startStream()
 
