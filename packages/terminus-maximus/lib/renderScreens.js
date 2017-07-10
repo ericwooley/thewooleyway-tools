@@ -3,13 +3,20 @@ var { createScreenBufferStreamer } = require('./bufferDispay')
 var { initScreen } = require('./screen')
 var createErrorScreen = require('./errorStream')
 var screen = initScreen()
-var shelljs = require('shelljs')
+var spawnCommand = require('./spawnCommand')
+// var shelljs = require('shelljs')
 var endOfLine = require('os').EOL
 var stream = require('stream')
-var {debounce} = require('lodash')
-var forceRender = debounce(() => {
+
+var {throttle} = require('lodash')
+var forceRender = throttle(() => {
   screen.render()
-}, 50)
+}, 50, {
+  leading: true
+})
+// var forceRender = () => {
+//   screen.render()
+// }
 /**
  * @typedef TerminusMaximusConfig
  * @property {Number} errorHeight - The height for the error console
@@ -110,9 +117,7 @@ function renderScreens (config, scriptToExecute) {
     return event => {
       screen.destroy()
       childProcesses.forEach(p => {
-        p.proc.getProcess().stdin.pause()
-        p.proc.getProcess().kill('SIGKILL')
-        kill(p.pid, 'SIGKILL')
+        p.proc.kill()
       })
       process.exit(code)
     }
@@ -126,12 +131,6 @@ function renderScreens (config, scriptToExecute) {
   screen.render()
 }
 module.exports.renderScreens = renderScreens
-
-function pushLines (str, data, push) {
-  const lines = data.split(endOfLine)
-  const label = ('              ' + str + ': ').slice(-25)
-  lines.map(line => label + line).forEach(push)
-}
 
 function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
   if (!container.fullscreen) {
@@ -158,21 +157,24 @@ function fullScreenToggle ({ container, userScreens, config, blessedOptions }) {
 function createProcess (processConfig, errorStream) {
   const stdout = new stream.PassThrough()
   const startStream = () => {
-    const p = shelljs.exec(processConfig.command, {
-      async: true,
-      silent: true
+    // Scope is probably broken inside the worker
+    const {worker, kill} = spawnCommand(processConfig.command, {
+      onStdout: (data) => {
+        data.split(endOfLine).forEach(l => {
+          stdout.push(l)
+        })
+      },
+      onStderr: (data) => {
+        data.split(endOfLine).forEach(l => {
+          errorStream.push(l)
+        })
+      }
     })
-    p.stdout.on('data', data => {
-      data.split(endOfLine).forEach(l => {
-        stdout.push(l)
-      })
-    })
-    p.stderr.on('data', data => {
-      pushLines(processConfig.label || processConfig.command, data, line =>
-        errorStream.push(line)
-      )
-    })
-    return p
+    return {
+      worker,
+      kill,
+      stdout
+    }
   }
   let proc = startStream()
 

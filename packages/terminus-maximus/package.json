@@ -1,6 +1,6 @@
 {
   "name": "@tww/terminus-maximus",
-  "version": "2.0.1",
+  "version": "2.0.2-0",
   "description": "",
   "private": false,
   "repository": {
@@ -25,7 +25,9 @@
     "lodash": "^4.17.4",
     "mock-fs": "^4.4.1",
     "npm": "^4.6.1",
-    "shelljs": "^0.7.8",
-    "tree-kill": "^1.1.0"
+    "parse-spawn-args": "^1.0.2",
+    "tiny-worker": "^2.1.1",
+    "tree-kill": "^1.1.0",
+    "webworker-threads": "^0.7.11"
   }
 }

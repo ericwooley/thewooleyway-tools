@@ -6,12 +6,19 @@
   "configurations": [
     {
       "type": "node",
+      "request": "attach",
+      "protocol": "inspector",
+      "name": "inspect",
+      "port": 9229
+    },
+    {
+      "type": "node",
       "request": "launch",
-      "name": "terminous http",
+      "name": "terminous loop",
       "cwd": "${workspaceRoot}/packages/terminus-maximus/",
       "program": "${workspaceRoot}/packages/terminus-maximus/bin/terminal.js",
       "args": [
-        "http"
+        "loop"
       ]
     },
     {
