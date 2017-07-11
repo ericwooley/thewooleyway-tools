@@ -76,8 +76,8 @@ function renderScreens (config, scriptToExecute) {
       restartButton,
       killButton
     } = createScreenBufferStreamer(screen, proc.stdout, blessedOptions, {
-      forceRender
-    })
+        forceRender
+      })
     killButton.on('click', proc.kill)
     restartButton.on('click', proc.restart)
     container.on('click', () =>
@@ -110,11 +110,13 @@ function renderScreens (config, scriptToExecute) {
     return event => {
       screen.destroy()
       childProcesses.forEach(p => {
-        p.proc.getProcess().stdin.pause()
-        p.proc.getProcess().kill('SIGKILL')
-        kill(p.pid, 'SIGKILL')
+        try {
+          p.proc.getProcess().stdin.pause()
+          p.proc.kill()
+          process.kill(p.proc.getPid())
+        } catch (e) {
+        }
       })
-      process.exit(code)
     }
   }
   process.on('exit', shutDown())
@@ -160,7 +162,8 @@ function createProcess (processConfig, errorStream) {
   const startStream = () => {
     const p = shelljs.exec(processConfig.command, {
       async: true,
-      silent: true
+      silent: true,
+      detatched: true
     })
     p.stdout.on('data', data => {
       data.split(endOfLine).forEach(l => {
@@ -181,6 +184,7 @@ function createProcess (processConfig, errorStream) {
     stdout,
     getPid: () => proc.pid,
     kill: () => {
+      proc.kill('SIGINT')
       kill(proc.pid)
       stdout.push('')
       stdout.push('-------------- killed by user --------------')
