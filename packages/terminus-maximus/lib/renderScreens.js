@@ -6,8 +6,8 @@ var screen = initScreen()
 var shelljs = require('shelljs')
 var endOfLine = require('os').EOL
 var stream = require('stream')
-var {debounce} = require('lodash')
-var forceRender = debounce(() => {
+var {throttle} = require('lodash')
+var forceRender = throttle(() => {
   screen.render()
 }, 50)
 /**
