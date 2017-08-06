@@ -1,0 +1,9 @@
+{
+  "name": "@tww/blueprint",
+  "version": "1.0.0",
+  "description": "Commited bluprints",
+  "main": "index.js",
+  "repository": "https://github.com/ericwooley/thewooleyway",
+  "author": "Eric Wooley <ericwooley@gmail.com>",
+  "license": "MIT"
+}
