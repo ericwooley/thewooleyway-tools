@@ -3,7 +3,8 @@
   "packages": [
     "packages/terminus-maximus/",
     "packages/config/",
-    "packages/up-resolve/"
+    "packages/up-resolve/",
+    "packages/blueprint/"
   ],
   "version": "independent"
 }

@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "main": "up-resolve.js",
   "private": false,
+  "typings": "up-resolve.d.ts",
   "repository": {
     "type": "git",
     "url": "git@github.com:thewooleyway/thewooleymeta.git"
