@@ -95,7 +95,7 @@ function createScreenBufferStreamer (
     if (options.replaceScreenOnNewData) {
       streamer.setContent(data + '')
     } else {
-      streamer.pushLine(options.textWrapper(data + ''))
+      streamer.pushLine(options.textWrapper(data + '').replace("{", "\\{").replace("}", "\\}"))
     }
     streamer.scroll(Number.MAX_VALUE)
     options.forceRender()
