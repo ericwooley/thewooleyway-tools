@@ -23,9 +23,9 @@ exports.noEmpty = _.curry(function (name, input) {
 });
 exports.isNumber = exports.mustBeOfType('number');
 exports.isEmail = exports.mustMatchRegex(/^.*@.*\..*$/, 'must be a valid email');
-exports.minLength = function (minLength) { return _.curry(function (name, input) {
+exports.minLength = _.curry(function (minLength, name, input) {
     return input.length >= minLength ? '' : name + ' must be at least ' + minLength + ' characters';
-}); };
+});
 exports.maxLength = function (maxLength) { return _.curry(function (name, input) {
     return input.length <= maxLength ? '' : name + ' must be at most ' + maxLength + ' characters';
 }); };

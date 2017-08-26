@@ -4,19 +4,19 @@ var validate = require("./");
 describe('composeValidations', function () {
     var emailValidation = validate.composeValidations(validate.isEmail, validate.minLength(9), validate.maxLength(15));
     it('should pass email', function () {
-        return expect(emailValidation('email', 'bob@bob.com')).toMatchSnapshot("composeValidations - email: valid");
+        return expect(emailValidation('email', 'bob@bob.com')).toMatchSnapshot('composeValidations - email: valid');
     });
     it('should fail for too long', function () {
-        return expect(emailValidation('email', 'bob@bob.comoTheDoggo')).toMatchSnapshot("composeValidations - email: invalid: too long");
+        return expect(emailValidation('email', 'bob@bob.comoTheDoggo')).toMatchSnapshot('composeValidations - email: invalid: too long');
     });
     it('should fail for too short', function () {
-        return expect(emailValidation('email', 'a@b.c')).toMatchSnapshot("composeValidations - email: invalid: too short");
+        return expect(emailValidation('email', 'a@b.c')).toMatchSnapshot('composeValidations - email: invalid: too short');
     });
     it('should fail for invalid', function () {
-        return expect(emailValidation('email', 'abcd1234123')).toMatchSnapshot("composeValidations - email: invalid: invalid");
+        return expect(emailValidation('email', 'abcd1234123')).toMatchSnapshot('composeValidations - email: invalid: invalid');
     });
     it('should fail for invalid and too short', function () {
-        return expect(emailValidation('email', 'a')).toMatchSnapshot("composeValidations - email: invalid: invalid & too short");
+        return expect(emailValidation('email', 'a')).toMatchSnapshot('composeValidations - email: invalid: invalid & too short');
     });
 });
 describe('isEmail', function () {
