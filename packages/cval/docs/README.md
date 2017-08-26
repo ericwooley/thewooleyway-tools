@@ -1,3 +1,4 @@
+
 # @tww/cval Composable Validation!
 _comes with typescript definitions_
 
@@ -13,7 +14,7 @@ import cval from '@tww/cval'
   console.log('email error', validResultFromEmail)
 
   const invalidResultFromEmail = cval.isEmail('myEmailFeild', 'bob$bob.com')
-  
+
   // 'myEmailField must be a valid email' because bob$bob.com is invalid
   console.log('email error', validResultFromEmail)
 
@@ -39,3 +40,19 @@ import cval from '@tww/cval'
   // ['myEmailField must be a valid email', 'myEmailField must be at least 9 characters'] 
 
 ```
+
+## Bundled validations
+
+
+
+
+
+## Index
+
+### External modules
+
+* ["index"](modules/_index_.md)
+
+
+
+---
