@@ -1,6 +1,6 @@
 {
   "name": "@tww/cval",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "composable validation",
   "main": "index.js",
   "author": "Eric Wooley <ericwooley@gmail.com>",
