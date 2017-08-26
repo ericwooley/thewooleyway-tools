@@ -1,5 +1,5 @@
 {
-  "name": "@tww/cval",
+  "name": "comp-val",
   "version": "1.0.2",
   "private": false,
   "description": "composable validation",

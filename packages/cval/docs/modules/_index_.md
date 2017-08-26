@@ -1,4 +1,4 @@
-[@tww/cval](../README.md) > ["index"](../modules/_index_.md)
+[comp-val](../README.md) > ["index"](../modules/_index_.md)
 
 
 

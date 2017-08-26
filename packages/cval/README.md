@@ -1,11 +1,11 @@
-# @tww/cval Composable Validation!
+# comp-val Composable Validation!
 _comes with typescript definitions_
 
-`npm install --save @tww/cval`
+`npm install --save comp-val`
 
 Examples
 ```js
-import cval from '@tww/cval'
+import cval from 'comp-val'
   // using validations individually
   const validResultFromEmail = cval.isEmail('myEmailFeild', 'bob@bob.com')
 
