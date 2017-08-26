@@ -40,5 +40,5 @@ import cval from '@tww/cval'
 
 ```
 ### Docs and bundled validation
-Checkout our [docs](/docs/README.md)
+Checkout our [validation docs](./docs/modules/_index_.md#variables-1)
 

@@ -6,7 +6,7 @@
   "author": "Eric Wooley <ericwooley@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "docs": "typedoc --theme markdown index.ts --out docs",
+    "docs": "typedoc --theme markdown index.ts --readme ./DocsIndex.md --out docs",
     "test": "jest",
     "prepublish": "npm run test && tsc"
   },
