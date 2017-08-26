@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`composeValidations - email: invalid: invalid & too short 1`] = `
+Array [
+  "email must be a valid email",
+  "email must be at least 9 characters",
+]
+`;
+
+exports[`composeValidations - email: invalid: invalid 1`] = `
+Array [
+  "email must be a valid email",
+]
+`;
+
+exports[`composeValidations - email: invalid: too long 1`] = `
+Array [
+  "email must be at most 15 characters",
+]
+`;
+
+exports[`composeValidations - email: invalid: too short 1`] = `
+Array [
+  "email must be at least 9 characters",
+]
+`;
+
+exports[`composeValidations - email: valid 1`] = `Array []`;
+
+exports[`email: invalid 1`] = `"email must be a valid email"`;
+
+exports[`email: valid 1`] = `""`;
+
+exports[`lessThan - -13: valid 1`] = `""`;
+
+exports[`lessThan - 12: valid 1`] = `""`;
+
+exports[`lessThan - 47: invalid 1`] = `"number must be at less than 12"`;
+
+exports[`maxLength - 11: valid 1`] = `""`;
+
+exports[`maxLength - 12: valid 1`] = `""`;
+
+exports[`maxLength - 13: invalid 1`] = `"maxLenVal must be at most 12 characters"`;
+
+exports[`minLength - 11: invalid 1`] = `"minLenVal must be at least 12 characters"`;
+
+exports[`minLength - 12: valid 1`] = `""`;
+
+exports[`minLength - 13: valid 1`] = `""`;
+
+exports[`moreThan - -5: valid 1`] = `""`;
+
+exports[`moreThan - 0: invalid 1`] = `"number must be at more than 12"`;
+
+exports[`moreThan - 25: valid 1`] = `""`;
+
+exports[`mustBeOfType: invalid 1`] = `"mustBeofType must be a string"`;
+
+exports[`mustBeOfType: valid 1`] = `""`;
+
+exports[`mustMatchRegex: invalid 1`] = `"alphabet must be a, b, c, or d"`;
+
+exports[`mustMatchRegex: valid 1`] = `""`;
+
+exports[`noEmpty: invalid 1`] = `"string cannot be empty"`;
+
+exports[`noEmpty: valid 1`] = `""`;
+
+exports[`number: invalid 1`] = `"number must be a number"`;
+
+exports[`number: valid 1`] = `""`;
