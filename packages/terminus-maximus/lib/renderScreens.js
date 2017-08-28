@@ -7,6 +7,8 @@ var shelljs = require('shelljs')
 var endOfLine = require('os').EOL
 var stream = require('stream')
 var {throttle} = require('lodash')
+var terminate = require('terminate')
+
 var forceRender = throttle(() => {
   screen.render()
 }, 50)
@@ -109,14 +111,24 @@ function renderScreens (config, scriptToExecute) {
   function shutDown (code) {
     return event => {
       screen.destroy()
-      childProcesses.forEach(p => {
-        try {
-          p.proc.getProcess().stdin.pause()
-          p.proc.kill()
-          process.kill(p.proc.getPid())
-        } catch (e) {
-        }
-      })
+      Promise.all(childProcesses.map(p => 
+        new Promise((resolve, reject) => {
+          console.log('killing', p.proc.getPid())
+          terminate(p.proc.getPid(), function (err) {
+            if (err) { // you will get an error if you did not supply a valid process.pid 
+              console.error('could not kill', p.proc.getPid(), 'might already be dead')
+              Promise.resolve(err) // handle errors in your preferred way. 
+            }
+            else {
+              Promise.resolve() // terminating the Processes succeeded. 
+            }
+          })
+        })))
+        .then(() => process.exit(code))
+        .catch((e) => {
+          console.error(e)
+          process.exit(1)
+        })
     }
   }
   process.on('exit', shutDown())
